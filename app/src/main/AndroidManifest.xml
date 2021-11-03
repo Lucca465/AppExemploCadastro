@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppExemploCadastro">
         <activity
+            android:name=".activity.TelaFeed"
+            android:exported="true" />
+        <activity
             android:name=".activity.TelaCadastro"
             android:exported="true" />
         <activity

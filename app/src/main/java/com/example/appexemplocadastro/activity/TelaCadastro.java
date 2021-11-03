@@ -79,6 +79,7 @@ public class TelaCadastro extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(TelaCadastro.this, "Sucesso ao cadastrar o usuário!", Toast.LENGTH_SHORT).show();
+                    finish();
                 }else {
 
                     String excecao = "";
