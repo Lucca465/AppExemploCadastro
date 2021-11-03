@@ -16,6 +16,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 public class TelaCadastro extends AppCompatActivity {
 
@@ -77,7 +80,23 @@ public class TelaCadastro extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(TelaCadastro.this, "Sucesso ao cadastrar o usuário!", Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(TelaCadastro.this, "Erro ao cadastrar o usuário!", Toast.LENGTH_SHORT).show();
+
+                    String excecao = "";
+                    try {
+                        throw task.getException();
+                    }catch (FirebaseAuthWeakPasswordException e){
+                        excecao = "Digite uma senha mais forte!";
+                    }catch (FirebaseAuthInvalidCredentialsException e){
+                        excecao = "Por favor, digite um email valido";
+                    }catch (FirebaseAuthUserCollisionException e){
+                        excecao = "Esta conta ja foi cadastrada!";
+                    }catch (Exception e){
+                        excecao = "Erro ao cadastrar um usuário: " + e.getMessage();
+                        // printar excecao no log
+                        e.printStackTrace();
+                    }
+
+                    Toast.makeText(TelaCadastro.this, excecao, Toast.LENGTH_SHORT).show();
                 }
             }
         });
