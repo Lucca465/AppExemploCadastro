@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.appexemplocadastro.R;
-import com.example.appexemplocadastro.config.ConfiguracaoFirebase;
+import com.example.appexemplocadastro.repository.ConfiguracaoFirebase;
 import com.example.appexemplocadastro.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

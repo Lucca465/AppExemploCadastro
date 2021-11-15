@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.appexemplocadastro.R;
-import com.example.appexemplocadastro.config.ConfiguracaoFirebase;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 

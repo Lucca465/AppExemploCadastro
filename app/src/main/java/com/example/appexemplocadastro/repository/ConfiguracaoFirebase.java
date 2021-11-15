@@ -1,4 +1,4 @@
-package com.example.appexemplocadastro.config;
+package com.example.appexemplocadastro.repository;
 
 import com.google.firebase.auth.FirebaseAuth;
 
