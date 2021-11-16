@@ -12,9 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Nivel crítico"
+        android:text="Tipo Sanguineo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.65"
+        app:layout_constraintHorizontal_bias="0.69"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagePaciente" />
 
@@ -103,7 +103,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imagePaciente" />
 
     <Spinner
-        android:id="@+id/spinnerCritico"
+        android:id="@+id/spinnerSanguineo"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
@@ -121,7 +121,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/padrao" />
+        app:srcCompat="@drawable/perfil_vazio" />
 
     <TextView
         android:id="@+id/textView7"
@@ -142,6 +142,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:onClick="validarDadosCadastrados"
         android:text="Cadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

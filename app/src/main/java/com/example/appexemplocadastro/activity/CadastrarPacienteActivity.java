@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +27,7 @@ import com.example.appexemplocadastro.helper.Permissoes;
 public class CadastrarPacienteActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText campoNomePaciente, campoEmailPaciente, campoDataNascimento, campoTelefone, campoConsulta;
-    private Spinner campoEstado, campoCritico;
+    private Spinner campoEstado, campoSanguineo;
     private Button botaoCadastrarPaciente;
     private ImageView imagePaciente;
 
@@ -46,7 +47,54 @@ public class CadastrarPacienteActivity extends AppCompatActivity implements View
 
         inicializarConponentes();
         carregarDadosSpinner();
+    }
 
+    public void validarDadosCadastrados(View view){
+        String estado = campoEstado.getSelectedItem().toString();
+        String sanguineo = campoSanguineo.getSelectedItem().toString();
+        String nome = campoNomePaciente.getText().toString();
+        String email = campoEmailPaciente.getText().toString();
+        String dataNascimento = campoDataNascimento.getText().toString();
+        String telefone = campoTelefone.getText().toString();
+        String consulta = campoConsulta.getText().toString();
+
+        if(!estado.isEmpty()){
+            if(!sanguineo.isEmpty()){
+                if(!nome.isEmpty()){
+                    if(!email.isEmpty()){
+                        if(!dataNascimento.isEmpty()){
+                            if(!telefone.isEmpty()){
+                                if(!consulta.isEmpty()){
+                                    salvar();
+                                } else{
+                                    exibirMensagemErro("Preencha o campo data / hora da consulta!");
+                                }
+                            } else{
+                                exibirMensagemErro("Preencha o campo Telefone!");
+                            }
+                        } else{
+                            exibirMensagemErro("Preencha o campo Data de nascimento!");
+                        }
+                    } else{
+                        exibirMensagemErro("Preencha o campo email!");
+                    }
+                } else{
+                    exibirMensagemErro("Preencha o campo nome!");
+                }
+            } else{
+                exibirMensagemErro("Preencha o campo sanguineo!");
+            }
+        } else{
+            exibirMensagemErro("Preencha o campo estado!");
+        }
+    }
+
+    private void exibirMensagemErro(String mensagem){
+        Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
+    }
+
+    public void salvar(){
+        Toast.makeText(this, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
     }
 
     private void inicializarConponentes(){
@@ -57,7 +105,7 @@ public class CadastrarPacienteActivity extends AppCompatActivity implements View
         campoTelefone = findViewById(R.id.editTelefone);
         campoConsulta = findViewById(R.id.editConsulta);
         campoEstado = findViewById(R.id.spinnerEstado);
-        campoCritico = findViewById(R.id.spinnerCritico);
+        campoSanguineo = findViewById(R.id.spinnerSanguineo);
 
         imagePaciente = findViewById(R.id.imagePaciente);
         imagePaciente.setOnClickListener(this);
@@ -75,12 +123,12 @@ public class CadastrarPacienteActivity extends AppCompatActivity implements View
         campoEstado.setAdapter(adapter);
 
         //campoCategoria
-        String[] critico = getResources().getStringArray(R.array.critico);
-        ArrayAdapter<String> adapterCategoria = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, critico
+        String[] sanguineo = getResources().getStringArray(R.array.sanguineo);
+        ArrayAdapter<String> adapterSanguineo = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, sanguineo
         );
-        adapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        campoCritico.setAdapter(adapterCategoria);
+        adapterSanguineo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        campoSanguineo.setAdapter(adapterSanguineo);
 
     }
 

@@ -40,10 +40,15 @@
         <item>TO</item>
     </string-array>
 
-    <string-array name="critico">
-        <item>Baixo</item>
-        <item>Medio</item>
-        <item>Alto</item>
+    <string-array name="sanguineo">
+        <item>A+</item>
+        <item>B+</item>
+        <item>AB+</item>
+        <item>O+</item>
+        <item>A-</item>
+        <item>B-</item>
+        <item>AB-</item>
+        <item>O-</item>
     </string-array>
 
 </resources>
