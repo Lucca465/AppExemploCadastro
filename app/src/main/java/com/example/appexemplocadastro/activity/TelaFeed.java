@@ -1,13 +1,12 @@
 package com.example.appexemplocadastro.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appexemplocadastro.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +31,10 @@ public class TelaFeed extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()){
+            case R.id.menu_pacientes:
+                startActivity(new Intent(getApplicationContext(), MeusPacientesActivity.class));
+                break;
+
             case R.id.menu_sair:
                 autenticacao.signOut();
                 break;
