@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,7 +26,7 @@ import com.example.appexemplocadastro.helper.Permissoes;
 public class CadastrarPacienteActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText campoNomePaciente, campoEmailPaciente, campoDataNascimento, campoTelefone, campoConsulta;
-    private Spinner spinnerEstado, spinnerCritico;
+    private Spinner campoEstado, campoCritico;
     private Button botaoCadastrarPaciente;
     private ImageView imagePaciente;
 
@@ -44,6 +45,7 @@ public class CadastrarPacienteActivity extends AppCompatActivity implements View
         Permissoes.validarPermissoes(permissoes, this, 1);
 
         inicializarConponentes();
+        carregarDadosSpinner();
 
     }
 
@@ -54,10 +56,34 @@ public class CadastrarPacienteActivity extends AppCompatActivity implements View
         campoDataNascimento = findViewById(R.id.editDataNascimento);
         campoTelefone = findViewById(R.id.editTelefone);
         campoConsulta = findViewById(R.id.editConsulta);
+        campoEstado = findViewById(R.id.spinnerEstado);
+        campoCritico = findViewById(R.id.spinnerCritico);
+
         imagePaciente = findViewById(R.id.imagePaciente);
         imagePaciente.setOnClickListener(this);
 
     }
+
+    private void carregarDadosSpinner(){
+
+        //CampoEstado
+        String[] estados = getResources().getStringArray(R.array.estados);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, estados
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        campoEstado.setAdapter(adapter);
+
+        //campoCategoria
+        String[] critico = getResources().getStringArray(R.array.critico);
+        ArrayAdapter<String> adapterCategoria = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, critico
+        );
+        adapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        campoCritico.setAdapter(adapterCategoria);
+
+    }
+
     //------------------------------------------------------------------------------------------------
     //escolher foto da galeria
     @Override
