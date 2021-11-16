@@ -1,22 +1,28 @@
 package com.example.appexemplocadastro.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appexemplocadastro.R;
 import com.example.appexemplocadastro.helper.Permissoes;
 
-public class CadastrarPacienteActivity extends AppCompatActivity {
+public class CadastrarPacienteActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText campoNomePaciente, campoEmailPaciente, campoDataNascimento, campoTelefone, campoConsulta;
     private Spinner spinnerEstado, spinnerCritico;
@@ -26,6 +32,8 @@ public class CadastrarPacienteActivity extends AppCompatActivity {
     private String[] permissoes = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
+
+    private String fotoRecuperada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +54,43 @@ public class CadastrarPacienteActivity extends AppCompatActivity {
         campoDataNascimento = findViewById(R.id.editDataNascimento);
         campoTelefone = findViewById(R.id.editTelefone);
         campoConsulta = findViewById(R.id.editConsulta);
+        imagePaciente = findViewById(R.id.imagePaciente);
+        imagePaciente.setOnClickListener(this);
 
     }
+    //------------------------------------------------------------------------------------------------
+    //escolher foto da galeria
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.imagePaciente:
+                escolherImagem(1);
+                break;
+        }
+    }
 
+    public void escolherImagem(int requestCode){
+        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i, requestCode);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == Activity.RESULT_OK){
+            //Recuperar Imagem
+            Uri imagemSelecionada = data.getData();
+            String caminhoImagem = imagemSelecionada.toString();
+
+            //Configurar imagem no ImageView
+            imagePaciente.setImageURI(imagemSelecionada);
+            fotoRecuperada = caminhoImagem;
+        }
+
+    }
+    //-----------------------------------------------------------------------------------------------
+    //Permissão de acesso na galeria
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
