@@ -16,10 +16,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.65"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imagePaciente" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/editEmailPaciente"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -31,10 +31,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/editNomePaciente" />
 
     <EditText
-        android:id="@+id/editTextDate"
+        android:id="@+id/editDataNascimento"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -45,10 +45,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.004"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/editEmailPaciente" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/editNomePaciente"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -60,10 +60,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imagePaciente" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/editConsulta"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -75,10 +75,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+        app:layout_constraintTop_toBottomOf="@+id/editDataNascimento" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/editTelefone"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -89,10 +89,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/editEmailPaciente" />
 
     <Spinner
-        android:id="@+id/spinner4"
+        android:id="@+id/spinnerEstado"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -100,10 +100,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.004"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imagePaciente" />
 
     <Spinner
-        android:id="@+id/spinner5"
+        android:id="@+id/spinnerCritico"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
@@ -111,10 +111,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imagePaciente" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imagePaciente"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="32dp"
@@ -133,10 +133,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imagePaciente" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonCadastrarPaciente"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -145,6 +145,6 @@
         android:text="Cadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+        app:layout_constraintTop_toBottomOf="@+id/editConsulta" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
