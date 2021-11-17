@@ -4,7 +4,7 @@
     <group android:id="@+id/group_logado">
 
         <item android:id="@+id/menu_pacientes"
-            android:title="Meus Pacientes"/>
+            android:title="Cadastrar Paciente"/>
 
         <item android:id="@+id/menu_sair"
             android:title="Sair"/>

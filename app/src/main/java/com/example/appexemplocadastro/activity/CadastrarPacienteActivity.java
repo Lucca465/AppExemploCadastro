@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,6 +24,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appexemplocadastro.R;
 import com.example.appexemplocadastro.helper.Permissoes;
+import com.example.appexemplocadastro.model.Paciente;
+import com.example.appexemplocadastro.repository.ConfiguracaoFirebase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class CadastrarPacienteActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -31,16 +40,22 @@ public class CadastrarPacienteActivity extends AppCompatActivity implements View
     private Button botaoCadastrarPaciente;
     private ImageView imagePaciente;
 
+
     private String[] permissoes = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
 
     private String fotoRecuperada;
+    private Paciente paciente;
+    private StorageReference storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_pacientes);
+
+        // Configurações iniciais
+        storage = ConfiguracaoFirebase.getFirebaseStorege();
 
         // Validar permissões
         Permissoes.validarPermissoes(permissoes, this, 1);
@@ -49,7 +64,59 @@ public class CadastrarPacienteActivity extends AppCompatActivity implements View
         carregarDadosSpinner();
     }
 
-    public void validarDadosCadastrados(View view){
+    public void salvarPaciente(){
+
+        //salvar imagem no storege
+        String urlImagem = fotoRecuperada;
+        salvarFotoStorage(urlImagem);
+
+    }
+
+    private void salvarFotoStorage(String urlString){
+        // Criar nó no storage
+        StorageReference imagemPaciente = storage.child("imagens")
+                .child("pacientes")
+                .child(paciente.getIdPaciente())
+                .child("imagem.jpeg");
+     /*
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference imagens = storageReference.child("imagens");
+        String nomeArquivo = UUID.randomUUID().toString();
+        final StorageReference imagemRef = imagens.child(nomeArquivo +".jpeg");
+     */
+        // fazer upload do arquivo
+        UploadTask uploadTask = imagemPaciente.putFile(Uri.parse(urlString));
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                imagemPaciente.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+
+                        Uri url = task.getResult();
+
+                        String urlConvertida = url.toString();
+
+                        paciente.setFoto(urlConvertida);
+                        paciente.salvar();
+                        exibirMensagemErro("salvo com sucesso");
+                    }
+                });
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                exibirMensagemErro("Falha ao fazer upload");
+                Log.i("INFO", "Falha ao fazer upload "+ e.getMessage());
+            }
+        });
+
+
+    }
+
+    public Paciente configurarPaciente(){
         String estado = campoEstado.getSelectedItem().toString();
         String sanguineo = campoSanguineo.getSelectedItem().toString();
         String nome = campoNomePaciente.getText().toString();
@@ -58,14 +125,30 @@ public class CadastrarPacienteActivity extends AppCompatActivity implements View
         String telefone = campoTelefone.getText().toString();
         String consulta = campoConsulta.getText().toString();
 
-        if(!estado.isEmpty()){
-            if(!sanguineo.isEmpty()){
-                if(!nome.isEmpty()){
-                    if(!email.isEmpty()){
-                        if(!dataNascimento.isEmpty()){
-                            if(!telefone.isEmpty()){
-                                if(!consulta.isEmpty()){
-                                    salvar();
+        Paciente paciente = new Paciente();
+        paciente.setEstado(estado);
+        paciente.setSanguineo(sanguineo);
+        paciente.setNome(nome);
+        paciente.setEmail(email);
+        paciente.setDataNascimento(dataNascimento);
+        paciente.setTelefone(telefone);
+        paciente.setConsulta(consulta);
+
+        return paciente;
+    }
+
+    public void validarDadosCadastrados(View view){
+
+       paciente = configurarPaciente();
+
+        if(!paciente.getEstado().isEmpty()){
+            if(!paciente.getSanguineo().isEmpty()){
+                if(!paciente.getNome().isEmpty()){
+                    if(!paciente.getEmail().isEmpty()){
+                        if(!paciente.getDataNascimento().isEmpty()){
+                            if(!paciente.getTelefone().isEmpty()){
+                                if(!paciente.getConsulta().isEmpty()){
+                                    salvarPaciente();
                                 } else{
                                     exibirMensagemErro("Preencha o campo data / hora da consulta!");
                                 }
@@ -91,10 +174,6 @@ public class CadastrarPacienteActivity extends AppCompatActivity implements View
 
     private void exibirMensagemErro(String mensagem){
         Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
-    }
-
-    public void salvar(){
-        Toast.makeText(this, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
     }
 
     private void inicializarConponentes(){

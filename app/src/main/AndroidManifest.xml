@@ -20,11 +20,6 @@
             android:name=".activity.CadastrarPacienteActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.MeusPacientesActivity"
-            android:exported="true"
-            android:label="@string/title_activity_meus_anuncios"
-            android:theme="@style/Theme.AppExemploCadastro.NoActionBar" />
-        <activity
             android:name=".activity.TelaFeed"
             android:exported="true" />
         <activity

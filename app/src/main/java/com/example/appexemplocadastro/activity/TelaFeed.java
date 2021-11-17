@@ -32,7 +32,7 @@ public class TelaFeed extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.menu_pacientes:
-                startActivity(new Intent(getApplicationContext(), MeusPacientesActivity.class));
+                startActivity(new Intent(getApplicationContext(), CadastrarPacienteActivity.class));
                 break;
 
             case R.id.menu_sair:
