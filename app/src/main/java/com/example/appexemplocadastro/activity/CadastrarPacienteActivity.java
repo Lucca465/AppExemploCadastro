@@ -101,6 +101,7 @@ public class CadastrarPacienteActivity extends AppCompatActivity implements View
                         paciente.setFoto(urlConvertida);
                         paciente.salvar();
                         exibirMensagemErro("salvo com sucesso");
+                        finish();
                     }
                 });
 
