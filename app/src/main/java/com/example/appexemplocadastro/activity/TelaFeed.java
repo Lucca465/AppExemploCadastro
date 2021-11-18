@@ -1,18 +1,22 @@
 package com.example.appexemplocadastro.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appexemplocadastro.Adapter.AdapterPacientes;
 import com.example.appexemplocadastro.R;
+import com.example.appexemplocadastro.helper.RecyclerItemClickListener;
 import com.example.appexemplocadastro.model.Paciente;
 import com.example.appexemplocadastro.repository.ConfiguracaoFirebase;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,6 +60,54 @@ public class TelaFeed extends AppCompatActivity {
         //Recuperar Pacientes para o usuario
         recuperarPacientes();
 
+        //Adicionar evento de clique no recyclerview
+        recyclerPacientes.addOnItemTouchListener(
+                new RecyclerItemClickListener(
+                        this,
+                        recyclerPacientes,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+                                Paciente pacienteSelecionado = pacientes.get(position);
+
+                                alertaExcluir(pacienteSelecionado);
+
+                                adapterPacientes.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                            }
+                        }
+                )
+        );
+
+    }
+
+    private void alertaExcluir(Paciente pacienteSelecionado){
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Deseja excluir o cadastro do paciente?");
+        dialog.setPositiveButton("Excluir", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                pacienteSelecionado.remover();
+            }
+        });
+        dialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        dialog.create();
+        dialog.show();
     }
 
     public void recuperarPacientes(){

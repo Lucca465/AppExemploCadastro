@@ -33,6 +33,17 @@ public class Paciente {
 
     }
 
+    public void remover(){
+
+        String idUsuario = ConfiguracaoFirebase.getIdUsuario();
+        DatabaseReference pacienteRef = ConfiguracaoFirebase.getFirebase()
+                .child("meus_pacientes")
+                .child(idUsuario)
+                .child(getIdPaciente());
+
+        pacienteRef.removeValue();
+    }
+
     public String getIdPaciente() { return idPaciente;  }
 
     public void setIdPaciente(String idPaciente) {
